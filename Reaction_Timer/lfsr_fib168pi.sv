@@ -10,7 +10,7 @@ module LFSR_fib168pi(
   input logic clk,
   input logic reset,
   input logic [27:0] seed,
-  output logic r
+  output logic [3:0] r
 );
   localparam key1=28'b1100100100001111110110101010;
   localparam key2=28'b0010001000010110100011000010;
@@ -28,5 +28,5 @@ module LFSR_fib168pi(
     else
       state <= next_state;
 
-  assign r = polynomial;
+  assign r = state [3:0];
 endmodule

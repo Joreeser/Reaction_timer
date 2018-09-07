@@ -113,8 +113,8 @@ set_property -dict {PACKAGE_PIN U13 IOSTANDARD LVCMOS33} [get_ports {an[7]}]
 #====================================================================================================
 # USB-RS232 Interface
 #====================================================================================================
-set_property -dict {PACKAGE_PIN D4 IOSTANDARD LVCMOS33} [get_ports tx]
-set_property -dict {PACKAGE_PIN C4 IOSTANDARD LVCMOS33} [get_ports rx]
+#set_property -dict {PACKAGE_PIN D4 IOSTANDARD LVCMOS33} [get_ports tx]
+#set_property -dict {PACKAGE_PIN C4 IOSTANDARD LVCMOS33} [get_ports rx]
 # ************CTS/RTS not used
 #set_property -dict { PACKAGE_PIN D3    IOSTANDARD LVCMOS33 } [get_ports { uart_cts }]; #IO_L12N_T1_MRCC_35 Sch=uart_cts
 #set_property -dict { PACKAGE_PIN E5    IOSTANDARD LVCMOS33 } [get_ports { uart_rts }]; #IO_L5N_T0_AD13N_35 Sch=uart_rts
@@ -122,8 +122,8 @@ set_property -dict {PACKAGE_PIN C4 IOSTANDARD LVCMOS33} [get_ports rx]
 #====================================================================================================
 # USB HID (PS/2)
 #====================================================================================================
-set_property -dict {PACKAGE_PIN F4 IOSTANDARD LVCMOS33} [get_ports ps2c]
-set_property -dict {PACKAGE_PIN B2 IOSTANDARD LVCMOS33} [get_ports ps2d]
+#set_property -dict {PACKAGE_PIN F4 IOSTANDARD LVCMOS33} [get_ports ps2c]
+#set_property -dict {PACKAGE_PIN B2 IOSTANDARD LVCMOS33} [get_ports ps2d]
 
 
 #====================================================================================================
