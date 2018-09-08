@@ -21,8 +21,8 @@
 
 
 module add3
-   (input [3:0] in,
-    output [3:0] out);
+   (input logic [3:0] in,
+    output logic [3:0] out);
       
     assign out = (in >= 5) ? in+3 : in;
     

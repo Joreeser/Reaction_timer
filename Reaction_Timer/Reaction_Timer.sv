@@ -28,10 +28,10 @@ module Reaction_Timer(
     );
     
     logic [27:0] display, value;
-    logic [3:0] time_delay, delay, count_s, sseg_ctrl, sseg_def;
-    logic count_ms;
+    logic [3:0] time_delay, delay, sseg_ctrl, sseg_def, thou, hun, tens, ones;
+    logic [12:0] count_ms, count_s;
     logic [27:0] seed = 28'b1110110001111110011101101100;
-    logic tick_s, tick_ms;
+    logic tick_s, tick_ms, go;
     
     // Set up state variables for program states
     typedef enum {READY, START0, START1, STOP, ERROR1, ERROR2} TimerStates;
@@ -52,16 +52,14 @@ module Reaction_Timer(
             READY:
             begin
             led = 0; 
-            count_s = 0;
-            count_ms = 0;
-                
+     
             // sseg display "HI"
-            value[27:21] = 4'hf;
-            value[20:14] = 4'h1;
-            value[13:0] = 8'h00;
-            sseg_ctrl = 4'b0011;
+            value[13:7] = 4'hf;
+            value[6:0] = 4'h1;
+            value[27:14] = 8'h00;
+            sseg_ctrl = 4'b0000;
                 
-            if (posedge start)
+            if (start)
                 next_state = START0;
             else
                 next_state = state;
@@ -69,40 +67,41 @@ module Reaction_Timer(
             
             START0:
             begin
-            // Delay value has to be at least 2
+            // Blank display on sseg
+            sseg_ctrl = 4'b1111;
+            
+            //Delay value has to be at least 2
             //if (delay < 2)
-                //time_delay = (delay | 4'b0001);
+                //time_delay = 2;
             //else 
                 //time_delay = delay;
                 
             // Count up seconds due to output of rand_delay mod_m_counter    
-            if (tick_s)
-                ++count_s; 
-                    
-            // Blank display on sseg
-            sseg_ctrl = 4'b1111;
+            //if (tick_s)
+                //count_s = count_s + 1; 
                 
-            if (count_s == delay)
-                next_state = START1;
-            else if (posedge stop)
+            if (stop)
                 next_state = ERROR1;
+            else if (count_s == delay)
+                next_state = START1;
             else
                 next_state = state;  
             end
             
             START1:
             begin
-            led = 1; 
+            led = 1;
+            go = 1; 
             
-            if (tick_ms)
-                ++count_ms;
+            //if (tick_ms)
+                //count_ms = count_ms + 1;
             
-            value = count_ms; // Display count on sseg
+            value [27:0] = {thou, hun, tens, ones}; // Display count on sseg
             sseg_ctrl = 4'b0000;
             
-            if (posedge stop)
-                next_state = STOP;
-            else if (count_ms == 1000)
+            if (value == 28'h1000)
+                next_state = ERROR2;
+            else if (stop)
                 next_state = ERROR2;
             else 
                 next_state = state;   
@@ -111,10 +110,10 @@ module Reaction_Timer(
             STOP:
             begin
             // Display count
-            value = count_ms;
+            value = value;
             sseg_ctrl = 4'b0000;
             
-            if (posedge reset)
+            if (reset)
                 next_state = READY;
             else
                 next_state = state;
@@ -126,7 +125,7 @@ module Reaction_Timer(
             value = 28'h9999;
             sseg_ctrl = 4'b0000;
             
-            if (posedge reset)
+            if (reset)
                 next_state = READY;
             else
                 next_state = state;
@@ -138,7 +137,7 @@ module Reaction_Timer(
             value = 28'h1000;
             sseg_ctrl = 4'b0000;
             
-            if (posedge reset)
+            if (reset)
                 next_state = READY;
             else
                 next_state = state;
@@ -151,7 +150,12 @@ module Reaction_Timer(
 
     LFSR_fib168pi rand_gen(.clk(clk), .reset(reset), .seed(seed), .r(delay));    
     mod_m_counter #(.M(100000000)) rand_delay(.clk(clk), .reset(reset), .max_tick(tick_s), .q());
-    mod_m_counter #(.M(100000)) react_time(.clk(clk), .reset(reset), .max_tick(tick_ms), .q()); 
+    mod_m_counter #(.M(100000)) react_time(.clk(clk), .reset(reset), .max_tick(tick_ms), .q());
+    //stop_watch_cascade stopwatch(.clk(clk), .go(go), .clr(reset), .d2(d2), .d1(d1), .d0(d0));
+    counter s_count(.clk(clk), .tick(tick_s), .reset(reset), .count(count_s));
+    counter ms_count(.clk(clk), .tick(tick_ms), .reset(reset), .count(count_ms));
+    BCD_13bit ms_binary_to_dec(.in(count_ms), .thousands(thou), .hundreds(hun), .tens(tens), .ones(ones));
+     
     hex_to_sseg sseg_for_disp0(.hex(value[6:0]), .dp(1), .sseg(display[6:0]));
     hex_to_sseg sseg_for_disp1(.hex(value[13:7]), .dp(1), .sseg(display[13:7]));
     hex_to_sseg sseg_for_disp2(.hex(value[20:14]), .dp(1), .sseg(display[20:14]));

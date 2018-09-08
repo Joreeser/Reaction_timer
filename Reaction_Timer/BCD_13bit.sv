@@ -21,12 +21,12 @@
 
 
 module BCD_13bit
-   (input [12:0] in,
-    output [3:0] thousands, hundreds, tens, ones);
+   (input logic [12:0] in,
+    output logic [3:0] thousands, hundreds, tens, ones);
     
-    wire [3:0] c1_w, c2_w, c3_w;
-    wire [7:0] c4_w, c5_w, c6_w;
-    wire [11:0] c7_w, c8_w, c9_w;
+    logic [3:0] c1_w, c2_w, c3_w;
+    logic [7:0] c4_w, c5_w, c6_w;
+    logic [11:0] c7_w, c8_w, c9_w;
    
     add3 C1(.in({1'b0, in[12:10]}), .out(c1_w));
     add3 C2(.in({c1_w[2:0], in[9]}), .out(c2_w));
