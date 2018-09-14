@@ -23,7 +23,8 @@ module hex_to_sseg
          4'hb: sseg[6:0] = 7'b0000011;
          4'hc: sseg[6:0] = 7'b1000110;
          4'hd: sseg[6:0] = 7'b0100001;
-         4'he: sseg[6:0] = 7'b0000110;
+         //4'he: sseg[6:0] = 7'b0000110;
+         4'he: sseg[6:0] = 7'b1111111;
          default: sseg[6:0] = 7'b0001001;  //4'hf disp h
      endcase
      sseg[7] = dp;

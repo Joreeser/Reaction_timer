@@ -1,0 +1,115 @@
+\documentclass{article}
+\usepackage{graphicx} % new way of doing eps files
+\usepackage{listings} % nice code layout
+\usepackage[usenames]{color} % color
+\definecolor{listinggray}{gray}{0.9}
+\definecolor{graphgray}{gray}{0.7}
+\definecolor{ans}{rgb}{1,0,0}
+\definecolor{blue}{rgb}{0,0,1}
+% \Verilog{title}{label}{file}
+\newcommand{\Verilog}[3]{
+  \lstset{language=Verilog}
+  \lstset{backgroundcolor=\color{listinggray},rulecolor=\color{blue}}
+  \lstset{linewidth=\textwidth}
+  \lstset{commentstyle=\textit, stringstyle=\upshape,showspaces=false}
+  \lstset{frame=tb}
+  \lstinputlisting[caption={#1},label={#2}]{#3}
+}
+
+
+\author{Jordan Reeser}
+\title{Reaction Timer}
+
+\begin{document}
+\maketitle
+
+\section{Executive Summary}
+In this lab, students were responsible for creating a reaction timer on the Nexys 4 DDR board. This reaction timer begins by displaying "hi" on the seven-segment display. Once the user presses the start button, a random amount of time between 2-15 seconds will pass before an LED turns on and a count in milliseconds (ms) begins and is displayed on the seven-segment display. When the user sees the LED turn on, they hit the stop button as quickly as possible stopping the timer, and their reaction time in ms will be displayed. To enable this operation, 6 modules were created/utilized inside of a top module that combined the function in a state machine. The top reaction timer, BCD\_13bit, and normal counter modules were created by the designer, Jordan Reeser; the LFSR\_fib168pi module was created by the instructor, Dr. Schubert; and the mod\_m\_counter, hex\_to\_sseg, and disp\_mux modules were downloaded from the class textbook's companion site and created by the book's author, Pong Chu. The hex\_to\_sseg module was modified for this lab's specific needs. Utilizing these modules, a reaction timer was sucessfully implemented.	
+
+\section{Board Setup}
+For this reaction timer, 3 buttons on the Nexys 4 DDR board are utilized as the ready, start, and stop buttons, and a board LED is usedd as the stimulus for reaction. For ease of use, the designer decided to use the 3 horizontal buttons on the board (btnL, btnC, and btnR) for ready, start, and stop, and picked the adjacent tricolor led (in green) as the reaction stimulus.
+
+\subsection{Ready, Start, and Stop}
+The designer decided to use the three horizontal buttons as ready, start, and stop since this setup appeared to be the most intuitive design.
+\begin{enumerate}
+	\item Ready: btnL
+	\item Start: btnC
+	\item Stop: btnR
+\end{enumerate} 
+
+\subsection{LED}
+The tricolor LED adjacent to the ready, start, and stop buttons on the board was picked as the reaction stimulus. The LED will shine green when the reaction time begins.
+\begin{enumerate}
+	\item LED: LD16 in green
+\end{enumerate}
+
+
+\begin{figure}[h!]
+	\begin{center}
+		\caption{Nexys 4 DDR board with buttons and LED labeled.}\label{fig:labeled_board}
+		\includegraphics[width=1.0\textwidth]{../images/labeled_board.png}
+	\end{center}
+\end{figure}
+
+\section{Functionality}
+To control the functionality of the project, a state machine was used with the following states: READY, START0, START1, STOP, ERROR1, and ERROR2.
+
+\subsection{READY}
+This state is similar to a reset state; it sets the initial conditions to prepare for the reaction timer to begin. 
+In this phase, the seven-segment display shows the message "Hi" on the first two displays. All counts are held at 0, and the LED is off. 
+The next state logic sets next\_state to START0 when the start button is pushed
+
+\subsection{START0}
+This state is where the random delay before the reaction stimulus occurs. A value is picked from the random number generator module (LFSR\_fib168pi) to be the random delay time; this variable is set to be 4 bits so it will pick a maximum value of 15, and an if statement ensures that the value is at least 2. The seconds are counted with a mod\_m counter connected to a basic counter until the count value equals that of the delay value. During this entire state the seven-segment display will be blank. The next state logic sets next\_state to ERROR1 if the stop button is pushed prematurely or to START1 when the count equals the delay time.
+
+\subsection{START1}
+The reaction time begins in this state. The stimulus LED is turned on, and the ms counter begins. The value of the ms counter is displayed on the seven-segment display. The next state logic sets next\_state to ERROR2 if the user does not press the stop button before 1 second has passed or to STOP when the stop button is pressed.
+
+\subsection{STOP}
+This state simply stops the ms counter and displays the count value on the seven-segment display. This value should be the user's reaction time in ms. The next state logic sets next\_state to READY is the user presses the ready (reset) button.
+
+\subsection{ERROR1}
+The first error state is the error from the user pressing the stop button before the reaction time (START1 state) begins. It displays "9999" on the display and returns to the READY state when the ready (reset) button is pressed.
+
+\subsection{ERROR2}
+This error occurs if the user does not press the stop button before the ms counter reaches 1000, or 1 second. The value "1000" is displayed and the design returns to the READY state when ready (reset) is pressed.
+
+\section{Modules}
+To implement the reaction timer design, the following modules were used:
+\begin{enumerate}
+	\item reaction\_timer
+	\item LFSR\_fib168pi
+	\item mod\_m\_counter
+	\item counter
+	\item BCD\_13bit
+	\item hex\_to\_sseg
+	\item disp\_mux
+\end{enumerate}
+
+\subsection{reaction\_timer}
+The reaction\_timer module is the top module for the project. It connects the inputs and outputs to the board and includes all of the state logic and other module instantiation.
+
+\subsection{LFSR\_fib168pi}
+This module is a linear-feedback shift register used to generate a random number for the delay. it uses a 28 bit seed and 4 keys that are the binary digits of pi. This module was created by Dr. Schubert.
+
+\subsection{mod\_m\_counter}
+This module is a simple mod m counter that is used to generate a tick after a specified amount of clock cycles. Two of these modules were used for the lab--one to generate a tick every second for the random delay time and the second to generate a tick every millisecond for the reaction time. This code was written by Pong Chu and levereged from his book \textit{FPGA Prototyping by SystemVerilog Examples}.
+
+\subsection{counter}
+This module is a basic counter module. It increments count every time a tick is present. Reset sets the count value back to zero, and a stop input holds the counter's value. Two instances of this module were needed for the lab--one to count the seconds and one to count milliseconds. Both of these instances were connected to the corresponding mod m counter.
+
+\subsection{BCD\_13bit}
+This module converts binary numbers to the corresponding decimal value to be displayed. The ms count value is fed into this module to display the count in decimal instead of hex.
+
+\subsection{hex\_to\_sseg}
+The hex\_to\_sseg module converts hex values fed into the module to binary values that will turn on the proper segments of the seven-segment display to show the hex value. This module was originally created by Pong Chu in his book \textit{FPGA Prototyping by SystemVerilog Examples}, and was modified to include "h" and blank display values for use in this lab.
+
+\subsection{disp\_mux}
+This module is used in conjunction with the hex\_to\_sseg module to display the values in the proper display units on the board. It multiplexes the display annodes to turn on one display at a time with the appropriate display value, and cycles through these displays at a rate that is too fast for a human viewer to discern. This module was created by Pong Chu and levereged from his book \textit{FPGA Prototyping by SystemVerilog Examples}.
+
+
+
+\section{Code Appendix}
+\Verilog{Verilog code for implementing the reaction timer.}{code:reaction_timer}{../Reaction_Timer/Reaction_Timer.sv}
+%\Verilog{Verilog code for testing a register.}{code:regtest}{../code/1_fetch/register_test.v}
+\end{document} 

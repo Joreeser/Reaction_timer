@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2018.9.7)  7 SEP 2018 18:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2018.9.14)  14 SEP 2018 16:26
 entering extended mode
-**./LabN.tex
-(LabN.tex
+**./ReactionTimer.tex
+(ReactionTimer.tex
 LaTeX2e <2017-04-15>
 Babel <3.15> and hyphenation patterns for 76 language(s) loaded.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
@@ -79,8 +79,9 @@ File: color.cfg 2016/01/02 v1.6 sample color configuration
 Package color Info: Driver file: pdftex.def on input line 147.
 )
 Package color Info: Redefining color blue on input line 8.
- (LabN.aux)
-\openout1 = `LabN.aux'.
+
+(ReactionTimer.aux)
+\openout1 = `ReactionTimer.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
 LaTeX Font Info:    ... okay on input line 23.
@@ -94,8 +95,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
 LaTeX Font Info:    ... okay on input line 23.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
 LaTeX Font Info:    ... okay on input line 23.
-
-("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+ ("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count95
 \scratchdimen=\dimen109
@@ -169,23 +169,138 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 24.
  [1
 
-{C:/Users/REESER/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2] [3] (L
-abN.aux) ) 
+{C:/Users/REESER/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+<../images/labeled_board.png, id=9, 472.01344pt x 353.82187pt>
+File: ../images/labeled_board.png Graphic file (type png)
+<use ../images/labeled_board.png>
+Package pdftex.def Info: ../images/labeled_board.png  used on input line 50.
+(pdftex.def)             Requested size: 345.0pt x 258.61714pt.
+ [2 <../images/labeled_board.png>] [3] [4]
+("C:\Program Files\MiKTeX 2.9\tex\latex\listings\lstlang1.sty"
+File: lstlang1.sty 2015/06/04 1.6 listings language file
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\listings\lstlang2.sty"
+File: lstlang2.sty 2015/06/04 1.6 listings language file
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\listings\lstlang3.sty"
+File: lstlang3.sty 2015/06/04 1.6 listings language file
+)
+(../Reaction_Timer/Reaction_Timer.sv [5]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 27.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 27.
+
+Overfull \hbox (105.00458pt too wide) in paragraph at lines 27--28
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 33.
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\omlcmr.fd"
+File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 33.
+
+Overfull \hbox (57.00409pt too wide) in paragraph at lines 51--52
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (81.00433pt too wide) in paragraph at lines 53--55
+[][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[6]
+Overfull \hbox (111.00464pt too wide) in paragraph at lines 101--103
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[7]
+Overfull \hbox (321.00677pt too wide) in paragraph at lines 156--157
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][] 
+ []
+
+
+Overfull \hbox (435.00793pt too wide) in paragraph at lines 157--158
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][] 
+ []
+
+
+Overfull \hbox (399.00757pt too wide) in paragraph at lines 158--159
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][] 
+ []
+
+
+Overfull \hbox (405.00763pt too wide) in paragraph at lines 159--160
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][] 
+ []
+
+
+Overfull \hbox (429.00787pt too wide) in paragraph at lines 160--161
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][] 
+ []
+
+
+Overfull \hbox (393.0075pt too wide) in paragraph at lines 161--162
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][] 
+ []
+
+
+Overfull \hbox (369.00726pt too wide) in paragraph at lines 162--163
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (129.00482pt too wide) in paragraph at lines 163--164
+[][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (141.00494pt too wide) in paragraph at lines 164--165
+[][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[8]
+Overfull \hbox (147.005pt too wide) in paragraph at lines 165--166
+[][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (753.01117pt too wide) in paragraph at lines 166--168
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+) [9] (ReactionTimer.aux) ) 
 Here is how much of TeX's memory you used:
- 2669 strings out of 493308
- 38585 string characters out of 3138766
- 98651 words of memory out of 3000000
- 6215 multiletter control sequences out of 15000+200000
- 7587 words of font info for 27 fonts, out of 3000000 for 9000
+ 3122 strings out of 493308
+ 45196 string characters out of 3138765
+ 149716 words of memory out of 3000000
+ 6641 multiletter control sequences out of 15000+200000
+ 8241 words of font info for 29 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,6n,32p,391b,219s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pf
-b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Pro
-gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program File
-s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on LabN.pdf (3 pages, 56037 bytes).
+ 41i,6n,43p,1180b,1633s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsf
+onts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
+cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.p
+fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Fil
+es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on ReactionTimer.pdf (9 pages, 762897 bytes).
 PDF statistics:
- 28 PDF objects out of 1000 (max. 8388607)
+ 67 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
